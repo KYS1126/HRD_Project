@@ -1,51 +1,53 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="java.util.*"%>
-<%@ page import="DTO.View" %>
-<% ArrayList<View> viewList = new ArrayList<View>();
-viewList = (ArrayList<View>)request.getAttribute("view");
-%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Insert title here</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="./css/style.css" />
 </head>
 <body>
-	<%@include file="topmenu.jsp"%>
-	<!-- 회원리스트를 ArrayList에 넣고. -->
-	<!-- for문으로 표를 만든다. -->
-	<section>
-		<div class="title">후보조회</div>
-		<div class="wrapper">
-			<table class="viewtable" style="width: 900px">
-				<tr>
-					<th>후보번호</th>
-					<th>성명</th>
-					<th>소속정당</th>
-					<th>학력</th>
-					<th>주민번호</th>
-					<th>지역구</th>
-					<th>대표전화</th>
-				</tr>
-				<%for (View v : viewList) { %>
-				<% %>
-				<tr>
-					<td><%=v.getM_no()%></td>
-					<td><%=v.getM_name()%></td>
-					<td><%=v.getP_name()%></td>
-					<td><%=v.getP_school()%></td>
-					<td><%=v.getM_jumin()%></td> 
-					<td><%=v.getM_city()%></td>
-					<td><%=v.getP_tel1()%></td>
-				</tr>
-				<%} %>
-			</table>
+	<div class="board_wrap">
+		<div class="board_title">
+			<strong>자유게시판</strong>
+			<p>자유게시판 입니다.</p>
 		</div>
-	</section>
-
-	<%@ include file="footer.jsp"%>
+		<div class="board_view_wrap">
+			<div class="board_view">
+				<div class="title">${board.title}</div>
+				<div class="info">
+					<dl>
+						<dt>번호</dt>
+						<dd>${board.board_no}</dd>
+					</dl>
+					<dl>
+						<dt>글쓴이</dt>
+						<dd>${board.user_id}</dd>
+					</dl>
+					<dl>
+						<dt>작성일</dt>
+						<dd>${board.reg_date}</dd>
+					</dl>
+					<dl>
+						<dt>조회</dt>
+						<dd>${board.views}</dd>
+					</dl>
+				</div>
+				<div class="cont">${board.content};</div>
+			</div>
+			<div class="bt_wrap">
+				<a href="index.html" class="on">목록</a> 
+				<a href="edit.html">수정</a>
+			</div>
+		</div>
+	</div>
+	<script>
+	  <c:if test="${error != null}">
+	    alert("${error}");
+	  </c:if>
+	</script>
 </body>
 </html>
